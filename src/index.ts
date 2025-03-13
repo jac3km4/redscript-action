@@ -55,7 +55,7 @@ async function run(): Promise<void> {
 function handleDiagnostics(title: string, input: string) {
   const text = stripAnsi(input);
   const matches = text.matchAll(
-    /(\[ERROR|WARN\])( \[\w+\])? At (([A-Z]:)?([^:\n]+))(:([0-9]+):([0-9]+))?(.*?)(?=\[ERROR|WARN|INFO\]|$)/gs,
+    /(\[ERROR\]|\[WARN\])( \[\w+\])? At (([A-Z]:)?([^:\n]+))(:([0-9]+):([0-9]+))?(.*?)(?=\[ERROR\]|\[WARN\]|\[INFO\]|$)/gs,
   );
   for (const match of matches || []) {
     const [, level, , file, , , , line, column, message] = match;
