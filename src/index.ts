@@ -66,7 +66,7 @@ function handleDiagnostics(title: string, input: string) {
       logFn = core.warning;
     }
 
-    logFn(message.trim(), {
+    logFn(message, {
       title,
       file,
       startLine: line ? parseInt(line) : undefined,

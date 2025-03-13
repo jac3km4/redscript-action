@@ -4,7 +4,8 @@
   "description": "A REDscript linting action.",
   "main": "dist/index.js",
   "scripts": {
-    "build": "esbuild --bundle --minify --target=es2019 --platform=node --outfile=dist/index.js src/index.ts"
+    "build": "esbuild --bundle --minify --target=es2019 --platform=node --outfile=dist/index.js src/index.ts",
+    "test": "pnpm build && node ./test.js"
   },
   "dependencies": {
     "@actions/core": "^1.10.0",
