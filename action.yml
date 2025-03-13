@@ -1,0 +1,21 @@
+name: "REDscript Action"
+description: "A REDscript linting action."
+inputs:
+  source:
+    description: "Path to the source directory."
+    required: true
+  lint:
+    description: "Boolean flag whether to lint."
+    required: false
+    default: "false"
+  check-format:
+    description: "Boolean flag whether to check format."
+    required: false
+    default: "false"
+  version:
+    description: "Version of the REDscript CLI to use."
+    required: false
+    default: "1.0.0-preview6"
+runs:
+  using: "node20"
+  main: "dist/index.js"
