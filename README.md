@@ -14,7 +14,7 @@ jobs:
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: jac3km4/redscript-action@v0.1.2
+      - uses: jac3km4/redscript-action@v0.1.3
         with:
           source: src
           lint: true
