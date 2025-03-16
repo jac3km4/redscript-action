@@ -15,7 +15,7 @@ async function run(): Promise<void> {
 
     if (checkFormat) {
       try {
-        execFileSync(`${exePath}`, ["format", "-c", "-s", `${source}`], {
+        execFileSync(exePath, ["format", "-c", "-s", source], {
           stdio: ["pipe", "ignore", "pipe"],
           encoding: "utf-8",
         });
@@ -31,14 +31,10 @@ async function run(): Promise<void> {
     if (lint) {
       const bundlePath = path.join(__dirname, "..", "assets", "api.redscripts");
       try {
-        execFileSync(
-          `${exePath}`,
-          ["lint", "-s", `${source}`, "-b", `${bundlePath}`],
-          {
-            stdio: "pipe",
-            encoding: "utf-8",
-          },
-        );
+        execFileSync(exePath, ["lint", "-s", source, "-b", bundlePath], {
+          stdio: "pipe",
+          encoding: "utf-8",
+        });
         core.info("Linting completed successfully");
       } catch (error: any) {
         if (error.stdout) {
@@ -59,19 +55,17 @@ function handleDiagnostics(title: string, input: string) {
   );
   for (const match of matches || []) {
     const [, level, , file, , , , line, column, message] = match;
-    let logFn;
-    if (level === "[ERROR]") {
-      logFn = core.error;
-    } else {
-      logFn = core.warning;
-    }
-
-    logFn(message, {
+    const annotation = {
       title,
       file,
       startLine: line ? parseInt(line) : undefined,
       startColumn: column ? parseInt(column) : undefined,
-    });
+    };
+    if (level === "[ERROR]") {
+      core.error(message, annotation);
+    } else {
+      core.warning(message, annotation);
+    }
   }
 }
 
